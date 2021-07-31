@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<script>
+
+//todo:
+//add hdf5 support
+//transition to the next map on click
+//transition back if click on button
+
+
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 920 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Color functions
+function colorChannelMixer(colorChannelA, colorChannelB, amountToMix){
+    var channelA = colorChannelA*amountToMix;
+    var channelB = colorChannelB*(1-amountToMix);
+    return parseInt(channelA+channelB);
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+//rgbA and rgbB are arrays, amountToMix ranges from 0.0 to 1.0
+//example (red): rgbA = [255,0,0]
+function colorMixer(hexA, hexB, amountToMix){
+
+    var rgbA = hexToRgb(hexA);
+    var rgbB = hexToRgb(hexB);
+
+    var r = colorChannelMixer(rgbA.r,rgbB.r,amountToMix);
+    var g = colorChannelMixer(rgbA.g,rgbB.g,amountToMix);
+    var b = colorChannelMixer(rgbA.b,rgbB.b,amountToMix);
+
+    return rgbToHex(r,g,b);
+}
+
+
+//Read the data
+d3.csv("/data/all_pl_test1.csv", function(data) {
+
+
+ // add the options to the drop-down menu
+  d3.select("#selectButton")
+    .selectAll('myOptions')
+    .data(data.columns)
+    .enter()
+    .append('option')
+    .text(function (d) { return d; }) // text showed in the menu
+    .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain([0, 1])
+    .range([ 0, width ])
+  //svg.append("g")
+  //  .attr("transform", "translate(0," + height + ")")
+  //  .call(d3.axisBottom(x));
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 1])
+    .range([ height, 0])
+  //svg.append("g")
+  // .call(d3.axisLeft(y));
+
+
+  // Color scale: give me a specie name, I return a color
+  //var color = d3.scaleOrdinal()
+  //  .domain(["setosa", "versicolor", "virginica" ])
+  //  .range([ "#440154", "#21908d", "#fde725"])
+
+  var color = d3.scaleSequential()
+      .domain([0, 1])
+      .interpolator(d3.interpolateViridis);
+
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d.x_coor); } )
+      .attr("cy", function (d) { return y(d.y_coor); } )
+      .attr("r", 3)
+      .style("fill", function (d) { return color(d.birth_year) } )
+})
+
+</script>
