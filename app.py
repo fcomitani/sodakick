@@ -1,11 +1,6 @@
 
-#what about improvements? how the player improved in the years
-#update dropdowns dynamically
-#https://community.plotly.com/t/updating-a-dropdown-menus-contents-dynamically/4920/2
-
 import numpy as np
 import pandas as pd
-import pickle
 import base64
 
 import dash

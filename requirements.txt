@@ -1,7 +1,10 @@
 dash==2.0.0
-numpy==1.20.3
+dash-bootstrap-components
+dash-bootstrap-templates
+numpy==1.22.3
 pandas==1.2.4
 plotly==5.5.0
 gunicorn==20.1.0
-tables==3.6.1
-base64
+matplotlib==3.4.2
+Werkzeug==2.0.0
+tables
