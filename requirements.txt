@@ -2,7 +2,6 @@ dash==2.0.0
 numpy==1.20.3
 pandas==1.2.4
 plotly==5.5.0
-scikit-learn==0.24.2
-scipy==1.6.3
 gunicorn==20.1.0
 tables==3.6.1
+base64

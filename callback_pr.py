@@ -2,9 +2,6 @@ from app import app
 import numpy as np
 import pandas as pd
 
-import matplotlib as mpl 
-import matplotlib.pyplot as pypl
-
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
