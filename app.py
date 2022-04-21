@@ -6,6 +6,7 @@
 import numpy as np
 import pandas as pd
 import pickle
+import base64
 
 import dash
 from dash import html
@@ -21,13 +22,13 @@ load_figure_template(template)
 
 """ Load data. """
 
-prj = pd.read_hdf('./data/prj_minkowski_separate_teams_220218.h5')
-plt = pd.read_hdf('./data/all_players_separate_teams_220218.h5')
+prj = pd.read_hdf('./ref/prj_minkowski_separate_teams_220218.h5')
+plt = pd.read_hdf('./ref/all_players_separate_teams_220218.h5')
 
-svd = pd.read_hdf('./data/svd_separate_teams_220218.h5')
+svd = pd.read_hdf('./ref/svd_separate_teams_220218.h5')
 svd = (svd-svd.min())/(svd.max()-svd.min())
 
-rc = pd.read_hdf('./data/rc_features_220413.h5')
+rc = pd.read_hdf('./ref/rc_features_220413.h5')
 
 plt = plt[sorted(plt.columns)]
 plt.season = plt.season.astype(str)
@@ -79,12 +80,16 @@ def_progress = make_def_pr(prj, template, app, seasons)
 
 """ Define app layout. """
 
+embedded_logo = base64.b64encode(open('./ref/sodakick_logo.png', 'rb').read())
+
 app.layout = html.Div(id = 'parent', children = [
 
-    html.H3(id = 'H_clinical', children = 'SodaKick dashboard', style = {'textAlign':'center',
-                                                                'marginTop':40,'marginBottom':40, 
-                                                                'font-family':'Helvetica'}, 
-                                                   className='text-center text-primary, mb-3'), 
+    html.H3(id = 'H_clinical', children = [
+        html.Img(src='data:image/png;base64,{}'.format(embedded_logo.decode()), style={'width':'40%'})
+    ], style = {'textAlign':'center',
+                'marginTop':40,'marginBottom':40, 
+                'font-family':'Helvetica'}, 
+    className='text-center text-primary, mb-3'), 
 
     html.Div(className='row', style = {'textAlign':'left', 'width': '60%', 'marginLeft':'20%','marginRight':'20%'},
         children = [
@@ -306,7 +311,6 @@ def set_player_from_click(clickData,dpdw_play):
 
 #maybe do prediction
 #clustering, maybe classify player by type -> similar players
-#do logo
 #do resize plots with window
 
 """ Callbacks """
