@@ -183,7 +183,7 @@ app.layout = html.Div(id = 'parent', children = [
 
         ]),
 
-        dcc.Graph(id = 'fig_scatter', figure=def_scatter, responsive=True, style=dict(width='37.5vw', height='47.5vw', horizontalAlign="center")),
+        dcc.Graph(id = 'fig_scatter', figure=def_scatter, responsive=True, style=dict(width='37.5vw', height='45vw', horizontalAlign="center")),
     ]),
 
 
@@ -214,7 +214,7 @@ app.layout = html.Div(id = 'parent', children = [
                     clearable=False),
             ], style=dict(width='100%')),
     
-        dcc.Graph(id = 'fig_progress', figure=def_progress, responsive=True, style=dict(width='37.5vw', height='20vw', horizontalAlign="center")),
+        dcc.Graph(id = 'fig_progress', figure=def_progress, responsive=True, style=dict(width='37.5vw', height='17.5vw', horizontalAlign="center")),
 
     ]), ]),
 
