@@ -44,7 +44,7 @@ season_labs    = [{'label': 'Average', 'value': 'average'}] +\
                     [{'label': '20'+i[:2]+'-20'+i[2:], 'value': i} for i in sorted(plt['season'].astype(str).unique()[:-1])][::-1]
 play_labs      = [{'label': i, 'value': i} for i in sorted(plt['player'].unique())]
 
-categories     = ['blocks','aggressivity','experience','goal keeping','action precision','goals','shots','action support','passes']
+categories     = ['blocks','aggressivity','experience','goal keeping','precision','goals','shots','action support','passes']
 rc_labs        = [{'label': l, 'value': l} for i,l in enumerate(rc.columns)]
 
 seasons             = ['2017/2018','2018/2019','2019/2020','2020/2021','2021/2022','average']
@@ -86,7 +86,7 @@ app.layout = html.Div(id = 'parent', children = [
                 'font-family':'Helvetica'}, 
     className='text-center text-primary, mb-3'), 
 
-    html.Div(className='row', style = {'textAlign':'left', 'width': '60%', 'marginLeft':'20%','marginRight':'20%'},
+    html.Div(className='row', style = {'textAlign':'left', 'width': '80%', 'marginLeft':'10%','marginRight':'10%'},
         children = [
 
 
@@ -183,7 +183,7 @@ app.layout = html.Div(id = 'parent', children = [
 
         ]),
 
-        dcc.Graph(id = 'fig_scatter', figure=def_scatter, style=dict(width='100%')),
+        dcc.Graph(id = 'fig_scatter', figure=def_scatter, responsive=True, style=dict(width='37.5vw', height='47.5vw', horizontalAlign="center")),
     ]),
 
 
@@ -201,7 +201,7 @@ app.layout = html.Div(id = 'parent', children = [
                     clearable=False),
             ], style=dict(width='100%')),
     
-        dcc.Graph(id = 'fig_radar', figure=def_radar, style=dict(width='100%')),
+        dcc.Graph(id = 'fig_radar', figure=def_radar, responsive=True, style=dict(width='37.5vw', height='37.5vw', horizontalAlign="center")),
 
         html.Div(children=[
             html.Label(['Category'], style={'font-family':'Helvetica', 'font-weight': 'bold', "text-align": "center"}),
@@ -214,7 +214,7 @@ app.layout = html.Div(id = 'parent', children = [
                     clearable=False),
             ], style=dict(width='100%')),
     
-        dcc.Graph(id = 'fig_progress', figure=def_progress, style=dict(width='100%')),
+        dcc.Graph(id = 'fig_progress', figure=def_progress, responsive=True, style=dict(width='37.5vw', height='20vw', horizontalAlign="center")),
 
     ]), ]),
 
