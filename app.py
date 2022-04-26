@@ -44,7 +44,7 @@ season_labs    = [{'label': 'Average', 'value': 'average'}] +\
                     [{'label': '20'+i[:2]+'-20'+i[2:], 'value': i} for i in sorted(plt['season'].astype(str).unique()[:-1])][::-1]
 play_labs      = [{'label': i, 'value': i} for i in sorted(plt['player'].unique())]
 
-categories     = ['blocks','aggressivity','experience','goal keeping','precision','goals','shots','action support','passes']
+categories     = ['blocks','aggressivity','experience','goal keeping','precision','goals','shots','support','passes']
 rc_labs        = [{'label': l, 'value': l} for i,l in enumerate(rc.columns)]
 
 seasons             = ['2017/2018','2018/2019','2019/2020','2020/2021','2021/2022','average']
